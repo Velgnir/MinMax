@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
-
+std::string strip(std::string string1);
 std::vector<std::string> split(std::string sor);
 
 int main() {
@@ -77,4 +77,17 @@ std::vector<std::string> split(std::string str){
     return sh;
 
 }
+
+std::string strip(std::string string1) {
+    while((!isalpha(string1[0]))){
+        if (!isalpha(string1[0])){string1.front() = ' ';}
+    }
+    while((!isalpha(string1[string1.length()-1]))){
+        if (!isalpha(string1[string1.length()])){string1.back() = ' ';}
+    }
+
+
+    return string1;
+}
+
 
