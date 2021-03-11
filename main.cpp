@@ -49,7 +49,7 @@ int main() {
         }
     }
     */
-    std::vector<std::string> words = split(a);
+    std::vector<std::string> words = split(last);
 
 
     for (auto word: words)
@@ -58,7 +58,10 @@ int main() {
     for (auto word: words)
         if (word.length()<min.length()){min = word;};
 
-    std::cout<<min<<"     " <<max;
+    std::cout<<min<<"     " <<max<<std::endl;
+
+    for (auto word: words)
+        std::cout<<strip(word)<<std::endl;
 }
 
 std::vector<std::string> split(std::string str){
@@ -98,5 +101,9 @@ std::string strip(std::string string1){
     }
     return string1;
 }
+
+
+
+
 
 
