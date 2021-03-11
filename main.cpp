@@ -7,9 +7,10 @@
 std::vector<std::string> split(std::string sor);
 
 int main() {
-
+    std::string last;
     std::string min;
     std::string max;
+    char la1;
     int z;
     int y;
     std::vector<int> sh2;
@@ -22,9 +23,18 @@ int main() {
     } else {
         std::cout << "file was open" << std::endl;
     }
-    getline(file, a);
+    while (!file.eof())
+    {
+        getline(file,a);
+        last.push_back(' ');
+        for (int i=0; i < a.length(); ++i) {
+            la1 = a[i];
+            last.push_back(la1);
+        }
+    }
+    //getline(file, a);
 
-    std::cout << a << std::endl;
+    std::cout << last << std::endl;
     for (int i = 0; i < sh1.size(); ++i)
         sh2.push_back(split(a)[i].length());
 
