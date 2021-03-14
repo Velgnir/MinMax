@@ -3,23 +3,35 @@
 #include <string>
 #include <vector>
 #include <sstream>
-std::string strip(std::string string1);
-std::vector<std::string> split(std::string sor);
 
-int main() {
+std::string strip(std::string string1);
+
+// the name of var's have to be the same
+std::vector<std::string> split(std::string str);
+//
+int main(int argc, char *argv[]) {
     std::string last;
     std::string min;
     std::string max;
     char la1;
     int z;
     int y;
+    std::string b;
     std::vector<int> sh2;
     std::vector<int> sh1;
-    std::string b = "./input.txt";
+    // to make possible terminal arguments.
+    if (argc > 1) {
+        b = std::string{argv[1]};
+    } else {
+        b = "./input.txt";
+    }
+    //
     std::string a;
     std::ifstream file(b);
     if (!file) {
         std::cout << "file wasn't open" << std::endl;
+        // The exit here is very important, because the program can not working correctly after this moment.
+        exit(1);
     } else {
         std::cout << "file was open" << std::endl;
     }
@@ -34,7 +46,7 @@ int main() {
     }
     //getline(file, a);
 
-    std::cout << last << std::endl;
+//    std::cout << last << std::endl;
     for (int i = 0; i < sh1.size(); ++i)
         sh2.push_back(split(a)[i].length());
 
