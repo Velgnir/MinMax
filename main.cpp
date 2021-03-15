@@ -3,35 +3,23 @@
 #include <string>
 #include <vector>
 #include <sstream>
-
 std::string strip(std::string string1);
+std::vector<std::string> split(std::string sor);
 
-// the name of var's have to be the same
-std::vector<std::string> split(std::string str);
-//
-int main(int argc, char *argv[]) {
+int main() {
     std::string last;
     std::string min;
     std::string max;
     char la1;
     int z;
     int y;
-    std::string b;
     std::vector<int> sh2;
     std::vector<int> sh1;
-    // to make possible terminal arguments.
-    if (argc > 1) {
-        b = std::string{argv[1]};
-    } else {
-        b = "./input.txt";
-    }
-    //
+    std::string b = "./input.txt";
     std::string a;
     std::ifstream file(b);
     if (!file) {
         std::cout << "file wasn't open" << std::endl;
-        // The exit here is very important, because the program can not working correctly after this moment.
-        exit(1);
     } else {
         std::cout << "file was open" << std::endl;
     }
@@ -46,7 +34,7 @@ int main(int argc, char *argv[]) {
     }
     //getline(file, a);
 
-//    std::cout << last << std::endl;
+    std::cout << last << std::endl;
     for (int i = 0; i < sh1.size(); ++i)
         sh2.push_back(split(a)[i].length());
 
@@ -94,25 +82,27 @@ std::vector<std::string> split(std::string str){
 }
 
 std::string strip(std::string string1){
-    std::string last;
+    std::string las;
     while((!isalpha(string1[0]))){
         if (!isalpha(string1[0])){
             for (int i=1; i<string1.length()+1; ++i)
-                last.push_back(string1[i]);
-            string1 = last;
+                las.push_back(string1[i]);
+            string1 = las;
         }
-        last="";
+        las="";
     }
-    while((!isalpha(string1[string1.length()-1]))){
+    while((!isalpha(string1[string1.length()-2]))){
         if (!isalpha(string1[string1.length()-2])){
             for (int i=0; i<string1.length()-2; ++i)
-                last.push_back(string1[i]);
-            string1 = last;
+                las.push_back(string1[i]);
+            string1 = las;
         }
-        last="";
+        las="";
     }
     return string1;
 }
+
+
 
 
 
