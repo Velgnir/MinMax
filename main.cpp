@@ -4,6 +4,9 @@
 #include <vector>
 #include <sstream>
 
+
+std::vector<std::string> preprocessing(std::string path);
+
 std::string strip(std::string string1);
 
 // the name of var's have to be the same
@@ -13,6 +16,7 @@ int main(int argc, char *argv[]) {
     std::string last;
     std::string min;
     std::string max;
+    int result = 0;
     char la1;
     int z;
     int y;
@@ -23,7 +27,7 @@ int main(int argc, char *argv[]) {
     if (argc > 1) {
         b = std::string{argv[1]};
     } else {
-        b = "./input.txt";
+        b = "./test1.txt";
     }
     //
     std::string a;
@@ -74,6 +78,15 @@ int main(int argc, char *argv[]) {
 
     for (auto word: words)
         std::cout<<strip(word)<<std::endl;
+
+    std::vector<std::string> words3 = preprocessing("./test1.txt");
+
+    for (auto word: words3) {
+        std::cout << word << "   ";
+        result += 1;
+    }
+    std::cout<<std::endl;
+    std::cout<<"result of the last task:  "<<result;
 }
 
 std::vector<std::string> split(std::string str){
@@ -94,22 +107,26 @@ std::vector<std::string> split(std::string str){
 }
 
 std::string strip(std::string string1){
-    std::string last;
-    while((!isalpha(string1[0]))){
-        if (!isalpha(string1[0])){
-            for (int i=1; i<string1.length()+1; ++i)
-                last.push_back(string1[i]);
-            string1 = last;
+    if (string1.length()!=1) {
+        std::string las;
+        while ((!isalpha(string1[0]))) {
+            if (!isalpha(string1[0])) {
+                for (int i = 1; i < string1.length() + 1; ++i)
+                    las.push_back(string1[i]);
+                string1 = las;
+            }
+            las = "";
+
+            if (string1.length() == 1) {}
+            while ((!isalpha(string1[string1.length() - 2]))) {
+                if (!isalpha(string1[string1.length() - 2])) {
+                    for (int i = 0; i < string1.length() - 2; ++i)
+                        las.push_back(string1[i]);
+                    string1 = las;
+                }
+                las = "";
+            }
         }
-        last="";
-    }
-    while((!isalpha(string1[string1.length()-1]))){
-        if (!isalpha(string1[string1.length()-2])){
-            for (int i=0; i<string1.length()-2; ++i)
-                last.push_back(string1[i]);
-            string1 = last;
-        }
-        last="";
     }
     return string1;
 }
@@ -117,5 +134,34 @@ std::string strip(std::string string1){
 
 
 
+//Last task
+std::vector<std::string> preprocessing(std::string path){
+    std::string z;
+    std::ifstream file02(path);
+    char la02;
+    std::string last02;
+    std::string last01 = "";
+while (!file02.eof())
+{
+getline(file02,z);
+last01.push_back(' ');
+for (int i=0; i < z.length(); ++i) {
+la02 = z[i];
+last01.push_back(la02);
+}
+}
+for(int i=0; i<last01.length(); ++i){
+    if (isalpha(last01[i]))
+    last02.push_back(tolower(last01[i]));
+}
+std::vector<std::string> words2 = split(last02);
 
+
+for (auto &word: words2) {
+    std::cout<<word<<"  ";
+    word = strip(word);
+}
+return words2;
+
+}
 
