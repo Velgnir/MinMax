@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
     if (argc > 1) {
         b = std::string{argv[1]};
     } else {
-        b = "./test1.txt";
+        b = "./input.txt";
     }
     //
     std::string a;
@@ -76,17 +76,17 @@ int main(int argc, char *argv[]) {
 
 //    std::cout << min << "     " << max << std::endl;
 
-//    for (auto word: words)
-//        std::cout << strip(word) << std::endl;
+    for (auto word: words)
+        std::cout << strip(word) << std::endl;
 
-    std::vector <std::string> words3 = preprocessing("./test1.txt");
+    std::vector <std::string> words3 = preprocessing("./input.txt");
 
-//    for (auto word: words3) {
-//        std::cout << word << "   ";
-//        result += 1;
-//    }
+    for (auto word: words3) {
+        std::cout << word << "   ";
+        result += 1;
+    }
     std::cout << std::endl;
-    std::cout << "result of the last task:  " << result;
+    std::cout << "result of the last task:  "<<result;
 }
 
 std::vector <std::string> split(std::string str) {
@@ -135,14 +135,11 @@ void ltrim(std::string &s) {
         return std::isalpha(ch);
     }));
 }
-
-
 static inline void rtrim(std::string &s) {
     s.erase(std::find_if(s.rbegin(), s.rend(), [](unsigned char ch) {
         return !std::isalpha(ch);
     }).base(), s.end());
 }
-
 static inline void strip(std::string &s) {
     ltrim(s);
     rtrim(s);
@@ -160,30 +157,25 @@ static inline void strip(std::string &s) {
 ///////////////////////////////?
 std::vector <std::string> preprocessing(std::string path) {
     std::string z;
-    std::ifstream file02(path);
-    char la02; // ?? what for
     std::string last02;
+    std::ifstream file02(path);
     std::string last01 = "";
     while (!file02.eof()) {
         getline(file02, z);
-        last01.push_back(' ');
-        for (int i = 0; i < z.length(); ++i) {
-            la02 = z[i];
-            last01.push_back(la02);
+        z+=" ";//function split ignore other
+        for(auto &letter :z){
+            last01+=(std::tolower(letter));
         } // lines 170-173 - you just copy the line char by char. why?
     }
-    for (int i = 0; i < last01.length(); ++i) {
-        if (isalpha(last01[i]))
-            last02.push_back(tolower(last01[i])); // bad practice. + you forget to add spaces, so split will not work =)
-    }
-    std::vector <std::string> words2 = split(last02);
+
+    std::vector <std::string> words2 = split(last01);
 
 
     for (auto &word: words2) {
-        std::cout << word << " ";
         word = strip(word);
     }// as you can see here. split fn doesn`t did it`s job, because to the input you gave one word....
     return words2;
 
 }
+
 
