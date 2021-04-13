@@ -21,6 +21,8 @@ int main(int argc, char *argv[]) {
     char la1;
     int z;
     int y;
+    int Max_result=0;
+    int Min_result=0;
     std::string b;
     std::vector<int> sh2;
     std::vector<int> sh1;
@@ -65,7 +67,7 @@ int main(int argc, char *argv[]) {
         }
     }
     */
-    std::vector <std::string> words = split(last);
+    std::vector <std::string> words = preprocessing("./input.txt");
 
 
     for (auto word: words)
@@ -74,10 +76,17 @@ int main(int argc, char *argv[]) {
     for (auto word: words)
         if (word.length() < min.length()) { min = word; };
 
-//    std::cout << min << "     " << max << std::endl;
+    for (auto word: words){
+        if (word.length() == max.length()){Max_result+=1;}
+        if (word.length() == min.length()){Min_result+=1;}
+    }
+    std::cout <<"min:  "<< min << std::endl;
+    std::cout <<"max:  "<< max << std::endl;
+    std::cout <<"min_count:  "<< Min_result << std::endl;
+    std::cout <<"max_count:  "<< Max_result << std::endl;
 
-    for (auto word: words)
-        std::cout << strip(word) << std::endl;
+   /* for (auto word: words)
+        std::cout << strip(word) << std::endl;*/
 
     std::vector <std::string> words3 = preprocessing("./input.txt");
 
@@ -106,23 +115,23 @@ std::vector <std::string> split(std::string str) {
 
 }
 
-std::string strip(std::string string1) { // better name is input_string
-    if (string1.length() != 1) {
+std::string strip(std::string input_string) { // better name is input_string
+    if (input_string.length() != 1) {
         std::string las; // I didn`t understand the meaning of this variable =)
-        while ((!isalpha(string1[0]))) {
-            if (!isalpha(string1[0])) {
-                for (int i = 1; i < string1.length() + 1; ++i)
-                    las.push_back(string1[i]); // better use string stream (more in the tasks I asked to make)
-                string1 = las;
+        while ((!isalpha(input_string[0]))) {
+            if (!isalpha(input_string[0])) {
+                for (int i = 1; i < input_string.length() + 1; ++i)
+                    las.push_back(input_string[i]); // better use string stream (more in the tasks I asked to make)
+                input_string = las;
             }
             las = "";
 
-            if (string1.length() == 1) {}
-            while ((!isalpha(string1[string1.length() - 2]))) {
-                if (!isalpha(string1[string1.length() - 2])) {
-                    for (int i = 0; i < string1.length() - 2; ++i)
-                        las.push_back(string1[i]);
-                    string1 = las;
+            if (input_string.length() == 1) {}
+            while ((!isalpha(input_string[input_string.length() - 2]))) {
+                if (!isalpha(input_string[input_string.length() - 2])) {
+                    for (int i = 0; i < input_string.length() - 2; ++i)
+                        las.push_back(input_string[i]);
+                    input_string = las;
                 }
                 las = "";
             }
@@ -146,7 +155,7 @@ static inline void strip(std::string &s) {
 }
      *
      * */
-    return string1;
+    return input_string;
 }
 
 
@@ -177,5 +186,8 @@ std::vector <std::string> preprocessing(std::string path) {
     return words2;
 
 }
+
+
+
 
 
